@@ -40,13 +40,16 @@
 - Enable Email & Password Authentication
 - Create Sign Up Page PT1
 - Create Form components/register-form.tsx
+            Note - Better Auth needs name field, if you don't want to put then just put hidden input field with blank name
 - Log Form Values
 - Setup Sonner
 - Create Sign Up Page PT2
 - Add Form Validation
 - Destructure SignUp Function
 - Showcase onError
+            by default, better auth password validation is 8 char long
 - OPTIONS - minPasswordLength
+            better auth signed user automatically on register unless email verification is on, by default email verification is off so on registeration it generates cookie and store it in cookieStorage in browser on user registeration
 - Create Sign Up Page PT3
 - Sign Up default automatically signs in the user
 - Show Session on Profile Page
