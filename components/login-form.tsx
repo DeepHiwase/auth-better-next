@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { signInEmailAction } from "@/actions/sign-in-email.action";
 
 export const LoginForm = () => {
   const [isPending, setIsPending] = useState(false);
@@ -15,36 +16,52 @@ export const LoginForm = () => {
   async function handleSubmit(evnt: React.FormEvent<HTMLFormElement>) {
     evnt.preventDefault();
 
+    setIsPending(true); // for server action
+
     const formData = new FormData(evnt.target as HTMLFormElement);
 
-    const email = String(formData.get("email"));
-    if (!email) return toast.error("Please enter your email");
+    const { error } = await signInEmailAction(formData);
 
-    const password = String(formData.get("password"));
-    if (!password) return toast.error("Please enter your password");
+    if (error) {
+      toast.error(error);
 
-    // console.log({ name, email, password });
-    await signIn.email(
-      {
-        email,
-        password,
-      },
-      {
-        onRequest: () => {
-          setIsPending(true);
-        },
-        onResponse: () => {
-          setIsPending(false);
-        },
-        onError: (ctx) => {
-          toast.error(ctx.error.message);
-        },
-        onSuccess: () => {
-          toast.success("Login successful, Good to have you back.");
-          router.push("/profile");
-        },
-      }
-    );
+      setIsPending(false); // for server action
+    } else {
+      toast.success("Login successful. Good to have you back.");
+      router.push("/profile");
+      // router.push("/profile");
+    }
+
+    // const formData = new FormData(evnt.target as HTMLFormElement);
+
+    // const email = String(formData.get("email"));
+    // if (!email) return toast.error("Please enter your email");
+
+    // const password = String(formData.get("password"));
+    // if (!password) return toast.error("Please enter your password");
+
+    // // console.log({ name, email, password });
+    // await signIn.email(
+    //   {
+    //     email,
+    //     password,
+    //   },
+    //   {
+    //     onRequest: () => {
+    //       setIsPending(true);
+    //     },
+    //     onResponse: () => {
+    //       setIsPending(false);
+    //     },
+    //     onError: (ctx) => {
+    //       toast.error(ctx.error.message);
+    //     },
+    //     onSuccess: () => {
+    //       toast.success("Login successful, Good to have you back.");
+    //       router.push("/profile");
+    //     },
+    //   }
+    // );
   }
 
   return (

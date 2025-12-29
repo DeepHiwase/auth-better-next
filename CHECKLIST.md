@@ -94,6 +94,7 @@ FINISH PART 1
 - Create Action
 - Log Form Values
 - Sign In User on Server
+            when working with server action, you have to set cookies api manually to send cookies with request, better make so simple by just adding plugin name nextCookies()
 - Showcase - No Cookies
 - Manually Set Cookies
 - Showcase - Cookies

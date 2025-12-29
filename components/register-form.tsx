@@ -5,8 +5,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { toast } from "sonner";
-import { signUp } from "@/lib/auth-client";
+// import { signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { signUpEmailAction } from "@/actions/sign-up-email.action";
 
 export const RegisterForm = () => {
   const [isPending, setIsPending] = useState(false);
@@ -15,41 +16,55 @@ export const RegisterForm = () => {
   async function handleSubmit(evnt: React.FormEvent<HTMLFormElement>) {
     evnt.preventDefault();
 
+    setIsPending(true); // for server action
+
     const formData = new FormData(evnt.target as HTMLFormElement);
 
-    const name = String(formData.get("name"));
-    if (!name) return toast.error("Please enter your name");
+    const { error } = await signUpEmailAction(formData);
 
-    const email = String(formData.get("email"));
-    if (!email) return toast.error("Please enter your email");
+    if (error) {
+      toast.error(error);
 
-    const password = String(formData.get("password"));
-    if (!password) return toast.error("Please enter your password");
+      setIsPending(false); // for server action
+    } else {
+      toast.success("Registration complete. You are all set.");
+      router.push("/auth/login");
+      // router.push("/profile");
+    }
+
+    // const name = String(formData.get("name"));
+    // if (!name) return toast.error("Please enter your name");
+
+    // const email = String(formData.get("email"));
+    // if (!email) return toast.error("Please enter your email");
+
+    // const password = String(formData.get("password"));
+    // if (!password) return toast.error("Please enter your password");
 
     // console.log({ name, email, password });
-    await signUp.email(
-      {
-        name,
-        email,
-        password,
-      },
-      {
-        onRequest: () => {
-          setIsPending(true);
-        },
-        onResponse: () => {
-          setIsPending(false);
-        },
-        onError: (ctx) => {
-          toast.error(ctx.error.message);
-        },
-        onSuccess: () => {
-          toast.success("Registration complete. You are all set.");
-          // router.push("/auth/login");
-          router.push("/profile");
-        },
-      }
-    );
+    // await signUp.email(
+    //   {
+    //     name,
+    //     email,
+    //     password,
+    //   },
+    //   {
+    //     onRequest: () => {
+    //       setIsPending(true);
+    //     },
+    //     onResponse: () => {
+    //       setIsPending(false);
+    //     },
+    //     onError: (ctx) => {
+    //       toast.error(ctx.error.message);
+    //     },
+    //     onSuccess: () => {
+    //       toast.success("Registration complete. You are all set.");
+    //       // router.push("/auth/login");
+    //       router.push("/profile");
+    //     },
+    //   }
+    // );
   }
 
   return (
