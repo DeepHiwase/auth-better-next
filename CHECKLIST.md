@@ -16,6 +16,11 @@
 - install prisma npm install prisma --save-dev
 - initialize prisma npx prisma init
 - create Post Model
+
+- npx prisma generate
+- npx prisma db push
+- npx prisma studio
+
 - push database changes npx prisma db push
 - add generated to .gitignore
 - adjust scripts in package.json
