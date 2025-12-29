@@ -101,3 +101,22 @@ FINISH PART 1
 - Get Additional Session Properties
 - PLUGINS - nextCookies()
 FINISH PART 2
+
+== PART 3 ==
+- Get Session on Client
+- Create Get Started Button
+- Destructure useSession
+- Showcase
+- OPTIONS - session.expiresIn
+- Change to 15 seconds
+- Showcase
+- Change to 30 days
+- Middleware
+- check for existence of a session cookie
+- showcase on auth routes
+- Error Handling
+- Hooks
+- Validate Email
+- Transform Name
+FINISH PART 3
+

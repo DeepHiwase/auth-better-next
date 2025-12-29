@@ -2,6 +2,7 @@ import { ReturnButton } from "@/components/return-btn";
 import { SignOutButton } from "@/components/sign-out-btn";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({
@@ -9,7 +10,8 @@ export default async function ProfilePage() {
   });
 
   if (!session) {
-    return <p className="text-destructive">Unauthorized</p>;
+    // return <p className="text-destructive">Unauthorized</p>;
+    return redirect("/auth/login"); // if some how pass middleware/proxy, this will ensure to protect this route
   }
 
   return (
