@@ -3,11 +3,15 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
+  const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
+
   async function handleSubmit(evnt: React.FormEvent<HTMLFormElement>) {
     evnt.preventDefault();
 
@@ -30,12 +34,20 @@ export const RegisterForm = () => {
         password,
       },
       {
-        onRequest: () => {},
-        onResponse: () => {},
+        onRequest: () => {
+          setIsPending(true);
+        },
+        onResponse: () => {
+          setIsPending(false);
+        },
         onError: (ctx) => {
           toast.error(ctx.error.message);
         },
-        onSuccess: () => {},
+        onSuccess: () => {
+          toast.success("Registration complete. You are all set.");
+          // router.push("/auth/login");
+          router.push("/profile");
+        },
       }
     );
   }
@@ -54,7 +66,7 @@ export const RegisterForm = () => {
         <Label htmlFor="passeord">Password</Label>
         <Input type="password" id="password" name="password" />
       </div>
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={isPending}>
         Register
       </Button>
     </form>
