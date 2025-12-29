@@ -1,6 +1,7 @@
 "use server";
 
-import { auth } from "@/lib/auth"; // this auth instance meant to be run on server not on client -> on clinet - auth-client
+import { auth, ErrorCode } from "@/lib/auth"; // this auth instance meant to be run on server not on client -> on clinet - auth-client
+import { APIError } from "better-auth/api";
 
 export async function signUpEmailAction(formData: FormData) {
   const name = String(formData.get("name"));
@@ -23,8 +24,16 @@ export async function signUpEmailAction(formData: FormData) {
 
     return { error: null };
   } catch (err) {
-    if (err instanceof Error) {
-      return { error: "Opps! Something went wrong while registering" };
+    if (err instanceof APIError) {
+      const errCode = err.body ? (err.body.code as ErrorCode) : "UNKNOWN";
+
+      switch (errCode) {
+        case "USER_ALREADY_EXISTS":
+          return { error: "Oops! Something went wrong. Please try again." };
+        default:
+          return { error: err.message };
+        // return { error: "Opps! Something went wrong, Please try again " };
+      }
     } else {
       return { error: "Internal Server Error!" };
     }

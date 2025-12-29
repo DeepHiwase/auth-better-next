@@ -3,6 +3,7 @@
 import { auth } from "@/lib/auth"; // this auth instance meant to be run on server not on client -> on clinet - auth-client
 // import { parseSetCookieHeader } from "better-auth/cookies";
 import { cookies, headers } from "next/headers";
+import { APIError } from "better-auth/api";
 
 export async function signInEmailAction(formData: FormData) {
   const email = String(formData.get("email"));
@@ -51,8 +52,8 @@ export async function signInEmailAction(formData: FormData) {
 
     return { error: null };
   } catch (err) {
-    if (err instanceof Error) {
-      return { error: "Opps! Something went wrong while logging IN" };
+    if (err instanceof APIError) {
+      return { error: err.message };
     } else {
       return { error: "Internal Server Error!" };
     }
