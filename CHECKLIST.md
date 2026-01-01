@@ -29,27 +29,27 @@
 - generate auth tables npx @better-auth/cli generate --output=auth.schema.prisma
 - make tweaks to schema.prisma
 - quick walkthrough the models:
-    User
-    Session
-    Account
-    Verification
+  User
+  Session
+  Account
+  Verification
 - push database changes npx prisma db push
 - create Mount Handler in app/api/auth/[...all]/route.ts
-- adjust eslint.config.mjs to ignore /src/generated/**/*
+- adjust eslint.config.mjs to ignore /src/generated/\*_/_
 - create Client instance in lib/auth-client.ts
 - Enable Email & Password Authentication
 - Create Sign Up Page PT1
 - Create Form components/register-form.tsx
-            Note - Better Auth needs name field, if you don't want to put then just put hidden input field with blank name
+  Note - Better Auth needs name field, if you don't want to put then just put hidden input field with blank name
 - Log Form Values
 - Setup Sonner
 - Create Sign Up Page PT2
 - Add Form Validation
 - Destructure SignUp Function
 - Showcase onError
-            by default, better auth password validation is 8 char long
+  by default, better auth password validation is 8 char long
 - OPTIONS - minPasswordLength
-            better auth signed user automatically on register unless email verification is on, by default email verification is off so on registeration it generates cookie and store it in cookieStorage in browser on user registeration
+  better auth signed user automatically on register unless email verification is on, by default email verification is off so on registeration it generates cookie and store it in cookieStorage in browser on user registeration
 - Create Sign Up Page PT3
 - Sign Up default automatically signs in the user
 - Show Session on Profile Page
@@ -65,9 +65,10 @@
 - Create Sign In Page PT2
 - Showcase onError
 - Sign In User
-FINISH PART 1
+  FINISH PART 1
 
 == PART 2 ==
+
 - Showcase onRequest and onResponse
 - Showcase Full Cycle Again
 - Add Convenience Links for Auth Pages
@@ -94,15 +95,16 @@ FINISH PART 1
 - Create Action
 - Log Form Values
 - Sign In User on Server
-            when working with server action, you have to set cookies api manually to send cookies with request, better make so simple by just adding plugin name nextCookies()
+  when working with server action, you have to set cookies api manually to send cookies with request, better make so simple by just adding plugin name nextCookies()
 - Showcase - No Cookies
 - Manually Set Cookies
 - Showcase - Cookies
 - Get Additional Session Properties
 - PLUGINS - nextCookies()
-FINISH PART 2
+  FINISH PART 2
 
 == PART 3 ==
+
 - Get Session on Client
 - Create Get Started Button
 - Destructure useSession
@@ -118,9 +120,10 @@ FINISH PART 2
 - Hooks
 - Validate Email
 - Transform Name
-FINISH PART 3
+  FINISH PART 3
 
 == PART 4 ==
+
 - Roles (Custom Method)
 - Prisma
 - Add UserRole Enum
@@ -156,4 +159,14 @@ FINISH PART 3
 - EXERCISE: Delete User With Admin Plugin
 - Change Permissions (With Posts)
 - Create Dropdown to Change Role for Admins
-FINISH PART 4
+  FINISH PART 4
+
+== PART 5 ==
+
+- Google OAuth
+  - Create Buttons
+- GitHub OAuth
+- Account Linking
+- Error Handling
+- `/auth/login/error`
+  FINISH PART 5
